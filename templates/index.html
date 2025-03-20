@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Legacy of the Scholars</title>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">  
+
+    <style>
+        body {
+            background: url('/static/background-sqli.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #e6cfb8d6;
+            font-family: "IM Fell English SC", serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            height: 90vh;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            gap: 20px;
+        }
+
+        .login-container,
+        .container,
+        .side-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            
+        }
+
+        .login-container {
+            width: 20%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .container {
+            width: 50%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .side-container {
+            width: 20%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            overflow-y: auto;
+        }
+
+        .scrolls-list {
+            width: 100%;
+            overflow-y: auto;
+            text-align: left;
+            margin-top: 5px;
+        }
+
+        .search-results {
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        input, button {
+            font-size: 1em;
+            padding: 5px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            width: 90%;
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        button {
+            background: #9d8169;
+            color: #E0C4A8;
+            border: 1px solid #6f5d4d;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #6f5d4d;
+        }
+        h2 {
+            margin-bottom: 5px; /* Reduces space below the title */
+        }
+
+        p {
+            margin-top: 5px; /* Brings the paragraph closer */
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+        
+        <!-- Login -->
+        <div class="login-container"> 
+            <h3>Entrance</h3>         
+            <form method="POST">
+                <label>Scholar:</label>
+                <input type="text" name="username">
+                <label>Password:</label>
+                <input type="password" name="password">
+                <button type="submit">Request Entry</button>
+            </form>
+            {% if login_message %}
+                <h3 style="color: e6cfb8d6;">{{ login_message }}</h3>
+            {% endif %}           
+        </div>
+
+        <!-- Search -->
+        <div class="container">
+            <h2>The Legacy of the Scholars</h2>
+            <p>The vast halls of the Grand Archive stretch beyond sight, lined with ancient scrolls containing thousands of years of wisdom.<br><br>
+                Among the shelves, you find a forgotten ledger: <br><br>
+                "Only those who inscribe their name into the records of history may seek true enlightenment. But names alone are not enough. The trials of the ancients must be understood and overcome.".</p>
+            <h3>Search the Grand Archive:</h3>
+            <form method="POST">
+                <input type="text" name="search">
+                <button type="submit">Search</button>
+            </form>
+
+            <div class="search-results">
+                {% if results %}
+                    <ul>
+                        {% for row in results %}
+                            <li><strong>{{ row.title }}</strong>: {{ row.content }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- List of all available srolls -->
+        <div class="side-container">
+            <h3>Grand Archive</h3>
+            <div class="scrolls-list">
+                <ul>
+                    {% for scroll in all_scrolls %}
+                        <li>{{ scroll.title }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
